@@ -45,33 +45,30 @@ class Die {
 		return sides;
 	}
 
-	public void trackedPecentages(int numberToRoll){
-		int[] rolls = new int[numberToRoll];
-		int[] rollOccurences = new int[sides]; 
-		int currentRollOccurence = 0;
+	public void cummulativeResults(int numberOfRolls){
 
-		for(int i = 0; i < numberToRoll; i++){
+
+		int[] timesEachRolled = new int[sides];
+
+
+		for (int i = 0; i < numberOfRolls; i++) {
 			roll();
-			rolls[i] = value;
+
+			timesEachRolled[value - 1] += 1;
+		
 		}
-		for(int side = 1; side < sides; side++){
-			for(int rollSpot = 0; rollSpot < rolls.length; rollSpot++){
-				if(rolls[rollSpot] == side){
-					currentRollOccurence += 1;
-				} 
+
+		for (int i = 0; i < timesEachRolled.length; i++) {
+			double percentDec = (double)timesEachRolled[i] / (double)numberOfRolls;
+			double percent = percentDec * 10;
+			
+			System.out.print(i + 1 + ": ");
+			for (double j = 0.0; j < percent; j++) {
+				System.out.print("-");
 			}
-			rollOccurences[side] = currentRollOccurence;
+			System.out.println("\n");
 		}
 
-		for (int i = 0; i < rolls.length; i++) {
-			System.out.println(rolls[i]);
-		}
-
-		System.out.println("------------------------------------------------");
-
-		for (int i = 0; i < rollOccurences.length; i++) {
-			System.out.println(rollOccurences[i]);
-		}
 		
 	}
 }
@@ -88,10 +85,10 @@ class DieTester {
 		System.out.println(die1.isStrictlyLessThan(die2));
 		System.out.println(die1.isStrictlyGreaterThan(die2));
 
-		die1.trackedPecentages(10);
+		die1.cummulativeResults(10);
 
-		die1.roll();
-		System.out.println(die1.getVal());
+		//die1.roll();
+		//ystem.out.println(die1.getVal());
 	}
 
 }
