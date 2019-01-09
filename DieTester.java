@@ -46,7 +46,11 @@ class Die {
 	}
 
 	public void cummulativeResults(int numberOfRolls){
+		System.out.println("");
 
+		System.out.println(numberOfRolls + " times rolled");
+
+		System.out.println("------------------");
 
 		int[] timesEachRolled = new int[sides];
 
@@ -60,12 +64,13 @@ class Die {
 
 		for (int i = 0; i < timesEachRolled.length; i++) {
 			double percentDec = (double)timesEachRolled[i] / (double)numberOfRolls;
-			double percent = percentDec * 10;
-			
+			double percent = percentDec * 500;
+
 			System.out.print(i + 1 + ": ");
 			for (double j = 0.0; j < percent; j++) {
 				System.out.print("-");
 			}
+			
 			System.out.println("\n");
 		}
 
@@ -86,6 +91,11 @@ class DieTester {
 		System.out.println(die1.isStrictlyGreaterThan(die2));
 
 		die1.cummulativeResults(10);
+		die1.cummulativeResults(100);
+		die1.cummulativeResults(1000);
+		die1.cummulativeResults(10000);
+		die1.cummulativeResults(100000);
+		die1.cummulativeResults(1000000);
 
 		//die1.roll();
 		//ystem.out.println(die1.getVal());
