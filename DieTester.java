@@ -82,19 +82,15 @@ class DieTester {
 
 	public static void main(String[] args) {
 		Die die1 = new Die(6);
-		System.out.println(die1.getVal());
 		Die die2 = new Die(6);
-		System.out.println(die2.getVal());
-
+		
 		System.out.println(die1.compareDice(die2));
 		System.out.println(die1.isStrictlyLessThan(die2));
 		System.out.println(die1.isStrictlyGreaterThan(die2));
 
 		die1.cummulativeResults(10);
 		die1.cummulativeResults(100);
-		die1.cummulativeResults(1000);
 		die1.cummulativeResults(10000);
-		die1.cummulativeResults(100000);
 		die1.cummulativeResults(1000000);
 
 		//die1.roll();
