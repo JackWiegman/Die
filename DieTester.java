@@ -55,7 +55,7 @@ class Die {
 		return sides;
 	}
 
-	public void cummulativeResults(int numberOfRolls){
+	public int[] cummulativeResults(int numberOfRolls, boolean loaded){
 		System.out.println("");
 
 		System.out.println(numberOfRolls + " times rolled");
@@ -68,9 +68,14 @@ class Die {
 		System.out.println("loaded side = " + loadedSide);
 
 
+
+
 		for (int i = 0; i < numberOfRolls; i++) {
-			//roll();
-			rollLoaded(loadedSide);
+			if (loaded) {
+				rollLoaded(loadedSide);
+			} else {
+				roll();
+			}
 
 			timesEachRolled[value - 1] += 1;
 		
@@ -87,6 +92,23 @@ class Die {
 			
 			System.out.println("\n");
 		}
+
+		return timesEachRolled;
+	}
+
+	public boolean determineLoadedDie() {
+		int numberOfRolls = 1000;
+		int[] timesEachRolled = cummulativeResults(numberOfRolls, true);
+		
+		int sum = 0;
+		for (int i = 0; i < timesEachRolled.length; i++) {
+			if (timesEachRolled[i] > (numberOfRolls / sides) + (numberOfRolls * 0.2)) {
+				return true;
+			}
+		}
+
+		return false;
+
 	}
 }
 
@@ -100,14 +122,22 @@ class DieTester {
 		System.out.println(die1.isStrictlyLessThan(die2));
 		System.out.println(die1.isStrictlyGreaterThan(die2));
 
-		die1.cummulativeResults(10);
-		die1.cummulativeResults(100);
+		die1.cummulativeResults(10, true);
+		die1.cummulativeResults(100, true);
 		//die1.cummulativeResults(10000);
-		die1.cummulativeResults(1000000);
+		die1.cummulativeResults(1000000, true);
 		//die1.cummulativeResults(1000000000);
 
 		//die1.roll();
-		//ystem.out.println(die1.getVal());
+		//system.out.println(die1.getVal());
+
+		boolean isLoaded = die1.determineLoadedDie();
+
+		if (isLoaded) {
+			System.out.println("Die is loaded.");
+		} else {
+			System.out.println("Die is not loaded.");
+		}
 	}
 
 }
