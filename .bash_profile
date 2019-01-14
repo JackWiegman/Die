@@ -1,6 +1,5 @@
-[alias]
-	gs='git status'
-	ga='git add'
-	gc='git commit -m'
-	gl='git log'
-	go='git checkout'
+alias gs='git status'
+alias ga='git add'
+alias gc='git commit -m'
+alias gl='git log'
+alias go='git checkout'
