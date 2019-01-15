@@ -100,7 +100,7 @@ class Die {
 			System.out.println((int)(Math.round(percentDec * 100)) + "%");
 			System.out.print(i + 1 + ": ");
 			for (int j = 0; j < percent; j++) {
-				System.out.print("-");
+				System.out.print("=");
 			}
 			System.out.println("\n");
 		}

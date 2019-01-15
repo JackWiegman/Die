@@ -20,15 +20,26 @@ class DieTester {
 		//System.out.println("STUPID BITCH");
 		//die1.cummulativeResults(10000);
 
-		die1.determineLoadedDie();
+		//die1.determineLoadedDie();
 
 		int loadedSide = (int)(Math.random() * die1.getSides()) + 1;
 		double loadedChance = Math.random() * 100.0;
 
-		die1.load(loadedSide, loadedChance);
+		die1.load(loadedSide, 50.0);
 
-		System.out.println("\n");
-		die1.determineLoadedDie();
+		//System.out.println("\n");
+		//die1.determineLoadedDie();
+
+		DieGame dieGame = new DieGame();
+
+		
+	}
+
+	public boolean checkSumNotExceedLimit() {
+		int sum = dieGame.rollGetSum(5, die1);
+		if (sum > 25) {
+			System.out.println("SUM EXCEEDS LARGEST SUM");
+		}
 	}
 
 	
