@@ -3,16 +3,16 @@ import java.lang.*;
 class Die {
 	int sides;
 	int value;
-	boolean isLoaded;
+	int loadedSide;
 	int rollCount = 1;
 	double loadedChance;
-	int loadedSide;
+	boolean isLoaded;
 
 	Die(int sides) {
-		this.sides = sides;
 		this.value = (int)(Math.random() * (sides)) + 1;
+		this.sides = sides;
 		this.rollCount = rollCount;
-		this.isLoaded = false;
+		this.isLoaded = isLoaded;
 		this.loadedChance = loadedChance;
 		this.loadedSide = loadedSide;
 	}
@@ -38,8 +38,9 @@ class Die {
 		return false;
 	}
 
-	public void roll(boolean isLoaded) {
-		if (this.isLoaded) {
+	public void roll() {
+		
+		if (!isLoaded) {
 			value = (int)(Math.random() * (sides)) + 1;
 			rollCount++;
 		} else {
@@ -47,7 +48,16 @@ class Die {
 			if (x < loadedChance) {
 				value = loadedSide;
 			} else {
-				value = (int)((Math.random() * sides) + 1);
+				int tempValue = (int)(Math.random() * (sides)) + 1;
+				if (tempValue == loadedSide) {
+					while (tempValue == loadedSide) {
+						tempValue = (int)(Math.random() * (sides)) + 1;
+					}
+				}
+				if (tempValue != loadedSide) {
+					value = tempValue;
+				}
+
 			}
 		}
 	}
@@ -60,67 +70,59 @@ class Die {
 		return sides;
 	}
 
-	public void load(int loadedSide, double loadedChance) {
+	public void load(int whichSideLoaded, double chanceOfLoadedSide) {
 		isLoaded = true;
-		loadedSide = this.loadedSide;
-		loadedChance = this.loadedChance;
+		loadedSide = whichSideLoaded;
+		loadedChance = chanceOfLoadedSide;
 	}
 
 	public int[] rollDiceTimesEachRolled(int numberOfRolls) {
 		int[] timesEachRolled = new int[sides];
 
 		for (int i = 0; i < numberOfRolls; i++) {
-			if (isLoaded) {
-				roll(true);
-
-			} else {
-				roll(false);
-			}
-
+			roll();
 			timesEachRolled[value - 1] += 1;
-		
 		}
-
 		return timesEachRolled;
 	}
 
 	public void cummulativeResults(int numberOfRolls){
-		System.out.println("");
-
 		System.out.println(numberOfRolls + " times rolled");
-
 		System.out.println("------------------");
 
-
 		int[] timesEachRolled = rollDiceTimesEachRolled(numberOfRolls);
-
+		double dashesPerPercent = 1.0;
 
 		for (int i = 0; i < timesEachRolled.length; i++) {
 			double percentDec = (double)timesEachRolled[i] / (double)numberOfRolls;
-			double percent = percentDec * 100;
+			int percent = (int)(Math.round(percentDec * 100) * dashesPerPercent);
 
+			System.out.println((int)(Math.round(percentDec * 100)) + "%");
 			System.out.print(i + 1 + ": ");
-			for (double j = 0.0; j < percent; j++) {
+			for (int j = 0; j < percent; j++) {
 				System.out.print("-");
 			}
-			
 			System.out.println("\n");
 		}
 	}
 
-	public boolean determineLoadedDie() {
-		int numberOfRolls = 100000;
+	public void determineLoadedDie() {
+		boolean dieIsLoaded = false;
+		int numberOfRolls = 10000000;
 		cummulativeResults(numberOfRolls);
 		int[] timesEachRolled = rollDiceTimesEachRolled(numberOfRolls);
-		
-		int sum = 0;
+
 		for (int i = 0; i < timesEachRolled.length; i++) {
-			if (timesEachRolled[i] > (numberOfRolls / sides) + (numberOfRolls * 0.2)) {
-				return true;
+			if (timesEachRolled[i] > (numberOfRolls / sides) + (numberOfRolls * 0.02)) {
+				dieIsLoaded = true;
 			}
 		}
 
-		return false;
+		if (dieIsLoaded) {
+			System.out.println("Die is loaded.");
+		} else {
+			System.out.println("Die is not loaded.");
+		}
 
 	}
 }
