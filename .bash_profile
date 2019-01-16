@@ -1,5 +1,0 @@
-alias gs='git status'
-alias ga='git add'
-alias gc='git commit -m'
-alias gl='git log'
-alias go='git checkout'
