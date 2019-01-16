@@ -4,6 +4,9 @@ class DieTester {
 		Die die1 = new Die(6);
 		Die die2 = new Die(6);
 
+		System.out.println(checkSumNotExceedLimit());
+
+
 		//System.out.println(die1.compareDice(die2));
 		//System.out.println(die1.isStrictlyLessThan(die2));
 		//System.out.println(die1.isStrictlyGreaterThan(die2));
@@ -27,19 +30,29 @@ class DieTester {
 
 		die1.load(loadedSide, 50.0);
 
+		die1.printHistory();
+
 		//System.out.println("\n");
 		//die1.determineLoadedDie();
 
-		DieGame dieGame = new DieGame();
+		
+		
 
 		
 	}
 
-	public boolean checkSumNotExceedLimit() {
-		int sum = dieGame.rollGetSum(5, die1);
-		if (sum > 25) {
-			System.out.println("SUM EXCEEDS LARGEST SUM");
+	public static boolean checkSumNotExceedLimit() {
+		Die die = new Die(6);
+		DieGame dieGame = new DieGame();
+		int timesToRun = 10000000;
+
+		for (int i = 0; i < timesToRun; i++) {
+			int sum = dieGame.rollGetSum(5, die);
+			if (sum > 30) {
+				return false;
+			}
 		}
+		return true;
 	}
 
 	

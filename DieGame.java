@@ -10,4 +10,7 @@ class DieGame {
 		return sum;
 	}
 
+	public 
+
+
 }

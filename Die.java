@@ -1,4 +1,5 @@
 import java.lang.*;
+import java.lang.ArrayList;
 
 class Die {
 	int sides;
@@ -7,6 +8,7 @@ class Die {
 	int rollCount = 1;
 	double loadedChance;
 	boolean isLoaded;
+	ArrayList<Integer> history;
 
 	Die(int sides) {
 		this.value = (int)(Math.random() * (sides)) + 1;
@@ -15,6 +17,9 @@ class Die {
 		this.isLoaded = isLoaded;
 		this.loadedChance = loadedChance;
 		this.loadedSide = loadedSide;
+
+		ArrayList history = new ArrayList<Integer>();
+
 	}
 
 	public boolean compareDice(Die die2) {
@@ -60,6 +65,20 @@ class Die {
 
 			}
 		}
+
+		history.add(new Integer(value));
+	}
+
+	public void printHistory() {
+		for (int i = 0; i < history.size(); i++) {
+			System.out.println(history.get(i).value());
+		}
+
+		for (Integer num : history) {
+			println(num.value());
+		}
+
+
 	}
 	
 	public int getVal() {
